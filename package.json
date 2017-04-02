@@ -1,0 +1,58 @@
+{
+    "name": "find-more",
+    "displayName": "find-more",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "FengYouzheng",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:find.findAll",
+        "onCommand:find.jump"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "findWidgetVisible",
+                    "command": "find.findAll",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                 {
+                    "command": "find.jump",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "find.findAll",
+                "title": "Find all"
+            },
+            {
+                "command": "find.jump",
+                "title": "Jump to"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    }
+}
