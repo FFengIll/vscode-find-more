@@ -5,8 +5,10 @@ We wish to extend vscode build-in find functions, so it is "find-more".
 ## Features
 
 ### Find
-- (pending) Extend find function and show results in an interactive panel.
-- (pending) Navigate the edit according to the find results.
+- Extend find function and show results in an interactive panel.
+- Navigate the edit according to the find results.
+- (pending) Highlight the find results.
+- (pending) Clear find results.
 
 [\\]: # (\!\[feature X\]\(images/feature-x.png\))
 
@@ -15,8 +17,6 @@ We wish to extend vscode build-in find functions, so it is "find-more".
 None for now.
 
 ## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
 This extension contributes the following settings:
 
@@ -32,14 +32,16 @@ None for now.
 Initial release.
 
 # Acknowledgement
-Thanks to [vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint) whose source code help me to understand more about vscode.
+Thanks to [vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint) which helps to understand about diagnostic.
+
+Thanks to [vscode-ext-color-highlight](https://github.com/sergiirocks/vscode-ext-color-highlight) which hleps to understand about decorations.
 
 # License
 
 [MIT](https://mit-license.org/)
 
 # Source
-[Github](https://github.com/FengYouzheng/vscode-edlin)
+[Github](https://github.com/FengYouzheng/vscode-find-more.git)
 
 Contributions are very welcome!
 

@@ -2,17 +2,16 @@
 	"name": "find-more",
 	"displayName": "find-more",
 	"description": "Extend of the build-in find functions",
-	"icon": "images/markdownlint-128.png",
 	"author": "Feng Youzheng",
 	"version": "0.0.1",
 	"publisher": "FengYouzheng",
 	"license": "MIT",
-	"homepage": "https://github.com/DavidAnson/vscode-markdownlint",
+	"homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/DavidAnson/vscode-markdownlint.git"
+		"url": "https://github.com/FengYouzheng/vscode-find-more.git.git"
 	},
-	"bugs": "https://github.com/DavidAnson/vscode-markdownlint/issues",
+	"bugs": "https://github.com/FengYouzheng/vscode-find-more.git/issues",
 
 	"engines": {
 		"vscode": "^1.10.0"
@@ -28,9 +27,7 @@
 		"lint"
 	],
 	"activationEvents": [
-		"onLanguage:markdown",
-		"onCommand:find.findAll",
-		"onCommand:find.jump"
+		"onCommand:find.findAll"
 	],
 	"main": "./out/src/extension",
 	"scripts": {
@@ -52,27 +49,17 @@
 				"when": "findWidgetVisible",
 				"command": "find.findAll",
 				"group": "navigation"
-			}],
-			"editor/context": [{
-				"command": "find.jump",
-				"group": "navigation"
 			}]
+
 		},
 		"commands": [{
 				"command": "find.findAll",
 				"title": "Find all"
-			},
-			{
-				"command": "find.jump",
-				"title": "Jump to"
 			}
 		],
-		"jsonValidation": [{
-			"fileMatch": ".markdownlint.json",
-			"url": "./node_modules/markdownlint/schema/markdownlint-config-schema.json"
-		}],
+		
 		"configuration": {
-			"title": "markdownlint configuration",
+			"title": "find more configuration",
 			"type": "object",
 			"properties": {
 				
