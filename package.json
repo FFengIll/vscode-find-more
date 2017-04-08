@@ -9,7 +9,7 @@
 	"homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/FengYouzheng/vscode-find-more.git.git"
+		"url": "https://github.com/FengYouzheng/vscode-find-more.git"
 	},
 	"bugs": "https://github.com/FengYouzheng/vscode-find-more.git/issues",
 
@@ -19,12 +19,8 @@
 	"categories": [
 		"Other"
 	],
-	"dependencies": {
-		"markdownlint": "^0.4.1"
-	},
 	"keywords": [
-		"find",
-		"lint"
+		"find"
 	],
 	"activationEvents": [
 		"onCommand:find.findAll"
@@ -53,16 +49,15 @@
 
 		},
 		"commands": [{
-				"command": "find.findAll",
-				"title": "Find all"
-			}
-		],
-		
+			"command": "find.findAll",
+			"title": "Find all"
+		}],
+
 		"configuration": {
 			"title": "find more configuration",
 			"type": "object",
 			"properties": {
-				
+
 			}
 		}
 	}
