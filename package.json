@@ -1,64 +1,73 @@
 {
-	"name": "find-more",
-	"displayName": "find-more",
-	"description": "Extend of the build-in find functions",
-	"author": "Feng Youzheng",
-	"version": "0.0.1",
-	"publisher": "FengYouzheng",
-	"license": "MIT",
-	"homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/FengYouzheng/vscode-find-more.git"
-	},
-	"bugs": "https://github.com/FengYouzheng/vscode-find-more.git/issues",
-
-	"engines": {
-		"vscode": "^1.10.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"keywords": [
-		"find"
-	],
-	"activationEvents": [
-		"onCommand:find.findAll"
-	],
-	"main": "./out/src/extension",
-	"scripts": {
-		"vscode:prepublish": "tsc -p ./",
-		"compile": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"test": "node ./node_modules/vscode/bin/test"
-	},
-	"devDependencies": {
-		"typescript": "^2.0.3",
-		"vscode": "^1.0.0",
-		"mocha": "^2.3.3",
-		"@types/node": "^6.0.40",
-		"@types/mocha": "^2.2.32"
-	},
-	"contributes": {
-		"menus": {
-			"editor/title": [{
-				"when": "findWidgetVisible",
-				"command": "find.findAll",
-				"group": "navigation"
-			}]
-
-		},
-		"commands": [{
-			"command": "find.findAll",
-			"title": "Find all"
-		}],
-
-		"configuration": {
-			"title": "find more configuration",
-			"type": "object",
-			"properties": {
-
-			}
-		}
-	}
+    "name": "find-more",
+    "displayName": "find-more",
+    "description": "Extend of the build-in find functions",
+    "author": "Feng Youzheng",
+    "version": "0.0.2",
+    "publisher": "FengYouzheng",
+    "license": "MIT",
+    "homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/FengYouzheng/vscode-find-more.git"
+    },
+    "bugs": "https://github.com/FengYouzheng/vscode-find-more.git/issues",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "find"
+    ],
+    "activationEvents": [
+        "onCommand:find.findAll",
+        "onCommand:find.clear"
+    ],
+    "main": "./out/src/extension",
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    },
+    "contributes": {
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "findWidgetVisible",
+                    "command": "find.findAll",
+                    "group": "navigation@1"
+                },
+                {
+                    "when": "findWidgetVisible",
+                    "command": "find.clear",
+                    "group": "navigation@2"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "find.findAll",
+                "title": "Find-All"
+            },
+            {
+                "command": "find.clear",
+                "title": "Clear"
+            }
+        ],
+        "configuration": {
+            "title": "find more configuration",
+            "type": "object",
+            "properties": {}
+        }
+    }
 }
