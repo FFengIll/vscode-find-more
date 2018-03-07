@@ -2,6 +2,7 @@
 
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as child_process from 'child_process';
 
 // Loads custom rule configuration
 function loadCustomConfig() {
@@ -44,8 +45,21 @@ export default class Finder {
     private extensionName: string;
     private showPosition: vscode.Position;
 
+    private engine: string;
+    private engine_options: Array<string>;
+
+    private useDiagnostics: Boolean;
+
     constructor(context: vscode.ExtensionContext) {
         this.extensionName = "find-more";
+
+        // get ripgrep
+        this.engine = vscode.workspace.getConfiguration().get<string>('find.engine');
+        var option_str = vscode.workspace.getConfiguration().get<string>('find.options');
+        this.engine_options = option_str.split(' ');
+
+        // use  diagnostics
+        this.useDiagnostics = vscode.workspace.getConfiguration().get<boolean>('find.diagnostics');
 
         // Create DiagnosticCollection
         this.diagnosticCollection = vscode.languages.createDiagnosticCollection(this.extensionName);
@@ -59,7 +73,7 @@ export default class Finder {
         this.showPosition = new vscode.Position(10, 0);
     }
 
-    private find_in_string(text: string, target: string): any {
+    private get_indexes(text: string, target: string): any {
         let chs = new Array();
 
         let maxlen = text.length;
@@ -77,8 +91,100 @@ export default class Finder {
 
         return chs;
     }
-
     public find(target: string) {
+        // get active text editor
+        let editor = vscode.window.activeTextEditor;
+        let doc = vscode.window.activeTextEditor.document;
+        let uri = doc.uri
+        let lineCount = doc.lineCount;
+
+        // data array
+        var diagnostics = [];
+        var locations = [];
+        var ranges = [];
+        var lines = [];
+        var filepath = vscode.window.activeTextEditor.document.uri.fsPath.toString();
+
+        //try if we have rg
+        var options = [];
+        options.push(target);
+        options.push(filepath);
+        options = options.concat(this.engine_options);
+        var rg = child_process.spawnSync(this.engine, options);
+
+        if (rg.stdout != null) {
+            var output = rg.stdout.toString();
+
+            //work both with \r and \n
+            var found = output.split('\n');
+            if (found.length <= 1) {
+                found = output.split('\r');
+            }
+            //process
+            found.forEach(element => {
+                var pair = element.split(':');
+                if (pair.length <= 1) {
+                    return;
+                }
+                //start from 0
+                var lineno = parseInt(pair[0]) - 1;
+                lines.push(lineno);
+            })
+        } else {
+            console.log("no ripgrep or error, use directly find instead!");
+            //if no rg or error, directly find
+            for (var lineno = 0; lineno < lineCount; lineno++) {
+                let text = editor.document.lineAt(lineno).text;
+                let index = text.indexOf(target);
+                if (index >= 0) {
+                    lines.push(lineno);
+                }
+            }
+        }
+
+        lines.forEach(lineno => {
+
+            let text = editor.document.lineAt(lineno).text;
+            let indexes = this.get_indexes(text, target);
+
+            indexes.forEach(index => {
+                //set position, range, uri to show as reference
+                let start = new vscode.Position(lineno, index);
+                let end = new vscode.Position(lineno, index + target.length);
+                let range = new vscode.Range(start, end);
+                let location = new vscode.Location(uri, range);
+                locations.push(location);
+
+                //show in log
+                let message = filepath + "\t" + lineno + "\t" + text;
+                console.log(message);
+
+                //process diagnostic
+                if (this.useDiagnostics) {
+                    var ruleName = "found";//result.ruleName;
+                    var ruleDescription = 'found';//result.ruleDescription;
+
+                    //ruleName + "/" + result.ruleAlias + ": " + ruleDescription;
+
+                    //var range = new vscode.Range(lineno, index, lineno, index + target.length);
+                    ranges.push(range);
+
+                    var diagnostic = new vscode.Diagnostic(range, text, vscode.DiagnosticSeverity.Information);
+
+                    diagnostic.code = 'found';
+                    diagnostics.push(diagnostic);
+                }
+            });
+
+        });
+
+        this.showInReference(uri, locations);
+        if (this.useDiagnostics) {
+            this.showInProblems(uri, diagnostics);
+        }
+    }
+
+    public find2017(target: string) {
         // get active text editor
         let editor = vscode.window.activeTextEditor;
         let doc = vscode.window.activeTextEditor.document;
@@ -93,7 +199,7 @@ export default class Finder {
         //process
         for (var line = 0; line < totalline; line++) {
             let text = editor.document.lineAt(line).text;
-            let chs = this.find_in_string(text, target);
+            let chs = this.get_indexes(text, target);
 
             chs.forEach(ch => {
                 //set position, range, uri

@@ -3,7 +3,7 @@
     "displayName": "find-more",
     "description": "Extend of the build-in find functions",
     "author": "Feng Youzheng",
-    "version": "0.0.2",
+    "version": "0.1.1",
     "publisher": "FengYouzheng",
     "license": "MIT",
     "homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
@@ -40,15 +40,28 @@
         "@types/mocha": "^2.2.32"
     },
     "contributes": {
+        "configuration": {
+            "properties": {
+                "find.engine": {
+                    "default": "rg"
+                },
+                "find.options": {
+                    "default": "-n"
+                },
+                "find.diagnostics": {
+                    "default": false
+                }
+            },
+            "title": "find more configuration",
+            "type": "object"
+        },
         "menus": {
             "editor/title": [
                 {
-                    "when": "findWidgetVisible",
                     "command": "find.findAll",
                     "group": "navigation@1"
                 },
                 {
-                    "when": "findWidgetVisible",
                     "command": "find.clear",
                     "group": "navigation@2"
                 }
@@ -57,17 +70,12 @@
         "commands": [
             {
                 "command": "find.findAll",
-                "title": "Find-All"
+                "title": "Find All"
             },
             {
                 "command": "find.clear",
                 "title": "Clear"
             }
-        ],
-        "configuration": {
-            "title": "find more configuration",
-            "type": "object",
-            "properties": {}
-        }
+        ]
     }
 }
