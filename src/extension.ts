@@ -13,7 +13,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     let finder = new Finder(context);
 
-
     //core contributions
     let disposable = null;
     disposable = vscode.commands.registerCommand('find.findAll', () => {

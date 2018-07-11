@@ -50,8 +50,13 @@ export default class Finder {
 
     private useDiagnostics: Boolean;
 
+    static EXTENSION_NAME = 'find-more';
+
     constructor(context: vscode.ExtensionContext) {
         this.extensionName = "find-more";
+
+        // output channel
+        this.channel = vscode.window.createOutputChannel(Finder.EXTENSION_NAME);
 
         // get ripgrep
         this.engine = vscode.workspace.getConfiguration().get<string>('find.engine');
@@ -79,6 +84,7 @@ export default class Finder {
         let maxlen = text.length;
         let len = target.length;
         let cur = 0;
+
         while (cur < maxlen) {
             var ch = text.indexOf(target, cur);
             if (ch < 0) {
@@ -91,6 +97,7 @@ export default class Finder {
 
         return chs;
     }
+    
     public find(target: string) {
         // get active text editor
         let editor = vscode.window.activeTextEditor;
@@ -110,29 +117,43 @@ export default class Finder {
         options.push(target);
         options.push(filepath);
         options = options.concat(this.engine_options);
-        var rg = child_process.spawnSync(this.engine, options);
 
-        if (rg.stdout != null) {
-            var output = rg.stdout.toString();
+        this.channel.show();
 
-            //work both with \r and \n
-            var found = output.split('\n');
-            if (found.length <= 1) {
-                found = output.split('\r');
-            }
-            //process
-            found.forEach(element => {
-                var pair = element.split(':');
-                if (pair.length <= 1) {
-                    return;
+        var completed = false;
+        console.log(this.engine, options.toString())
+        if (this.engine) {
+            var rg = child_process.spawnSync(this.engine, options);
+            if (rg.stdout != null) {
+                completed = true;
+                var output = rg.stdout.toString();
+                console.log(output);
+
+                //work both with \r and \n
+                var found = output.split('\n');
+                if (found.length <= 1) {
+                    found = output.split('\r');
                 }
-                //start from 0
-                var lineno = parseInt(pair[0]) - 1;
-                lines.push(lineno);
-            })
-        } else {
-            console.log("no ripgrep or error, use directly find instead!");
-            //if no rg or error, directly find
+                //process
+                found.forEach(element => {
+                    var pair = element.split(':');
+                    if (pair.length <= 1) {
+                        return;
+                    }
+                    //start from 0
+                    var lineno = parseInt(pair[0]) - 1;
+                    lines.push(lineno);
+                })
+
+            } else {
+                completed = false;
+            }
+        }
+
+        if (!completed) {
+            this.channel.appendLine("no engine or error, use general find instead!");
+            console.log("no engine or error, use general find instead!");
+            //if no engine or error, general find
             for (var lineno = 0; lineno < lineCount; lineno++) {
                 let text = editor.document.lineAt(lineno).text;
                 let index = text.indexOf(target);
@@ -157,6 +178,7 @@ export default class Finder {
 
                 //show in log
                 let message = filepath + "\t" + lineno + "\t" + text;
+                this.channel.appendLine(message);
                 console.log(message);
 
                 //process diagnostic
