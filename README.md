@@ -1,28 +1,34 @@
 # find-more README
-## WARNING
-I am trying to make the plugin **DEPRECATED**, so I do a [**PULL REQUEST**](https://github.com/Microsoft/vscode/pull/54038) using vscode search for file.
+## No Maintenance WARNING
+It is going to **No Maintenance**!
+I have tried to make the find better (plugin or PR), none of them seem good.
+But vscode is giving more and more on it, so we may (and hope) no need for this in the future.
 
-If you like it, plz give `+1` to it ~
+> some struggle: 
+> [issue](https://github.com/Microsoft/vscode/issues/14836)
+> [pr](https://github.com/Microsoft/vscode/pull/54038)
+> [plugin in github](https://github.com/FFengIll/vscode-find-more)
+> [plugin in market](https://marketplace.visualstudio.com/items?itemName=FengYouzheng.find-more)
 
 ## Description
 Wish to extend vscode build-in find functions, so it is "find-more".  
-The find results can be shown in `Symbol Reference` panel and `PROBLEMS` panel (default not).
+The find results will show in `Symbol Reference` panel and `PROBLEMS` panel (default not).
+
+- Select target, click `FindAll` on title toolbar (the top-right).
+- Or click `FindAll` and `key in` the target.
+- Only support plain text!
 
 ## Features
-
-### Find
+find all results in one file
 - Show `all find results` in an interactive panel.
 - `Navigate` the edit according to the find results.
 - `Highlight` the find results.
-- Clear find results.
-- Can work with `ripgrep` or `others engine` while setting.
-- Only work in `single file` now.
+- Close to clear.
+- Can work with `engin` like `ripgrep`, `grep`, ... (while set).
+- Only work in `single file` and `plain text`.
 
-[\\]: # (\!\[feature X\]\(images/feature-x.png\))
-
-## Requirements
-
-* If use engine like ripgrep to help find all, please set the engine.
+## Mention
+* If use engine like ripgrep / grep / ... to help find all, please set it first.
 * If no engine given (or error), it will fall into general text find method.
 
 ## Extension Settings
@@ -50,11 +56,11 @@ None for now.
 * [0.0.1] Initial release.
 
 # Misc
+Source code in [Github](https://github.com/FFengIll/vscode-find-more.git) 
+under [MIT](https://mit-license.org/).
+
 Thanks to 
 [vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint) (about diagnostic)
-and 
 [vscode-ext-color-highlight](https://github.com/sergiirocks/vscode-ext-color-highlight) (about decorations).
-
-Source code in [Github](https://github.com/FengYouzheng/vscode-find-more.git) under [MIT](https://mit-license.org/).
 
 **Enjoy!**
