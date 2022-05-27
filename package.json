@@ -3,7 +3,7 @@
     "displayName": "find-more",
     "description": "Extend of the build-in find functions",
     "author": "Feng Youzheng",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "publisher": "FengYouzheng",
     "license": "MIT",
     "homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
@@ -22,52 +22,54 @@
         "find"
     ],
     "activationEvents": [
-        "onCommand:find.findAll",
+        "onCommand:find.findInFile",
         "onCommand:find.clear"
     ],
-    "main": "./out/src/extension",
+    "main": "./out/extension",
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "yarn run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "pretest": "yarn run compile && yarn run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
-        "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+        "@types/vscode": "^1.67.0",
+        "@types/glob": "^7.2.0",
+        "@types/mocha": "^9.1.0",
+        "@types/node": "14.x",
+        "@typescript-eslint/eslint-plugin": "^5.12.1",
+        "@typescript-eslint/parser": "^5.12.1",
+        "eslint": "^8.9.0",
+        "glob": "^7.2.0",
+        "mocha": "^9.2.1",
+        "typescript": "^4.5.5",
+        "@vscode/test-electron": "^2.1.2"
     },
     "contributes": {
-        "configuration": {
-            "properties": {
-                "find.engine": {
-                    "default": ""
-                },
-                "find.options": {
-                    "default": ""
-                },
-                "find.diagnostics": {
-                    "default": false
-                }
-            },
-            "title": "find more configuration",
-            "type": "object"
-        },
         "menus": {
             "editor/title": [
                 {
-                    "command": "find.findAll",
+                    "command": "find.findInFile",
                     "group": "navigation@1"
                 }
-            ]
+            ],
+            "explorer/context": [
+                {
+                    "command": "find.findInFile",
+                    "group": "Find",
+                    "when": "explorerResourceIsFolder!=true"
+                }
+            ],
+            "commandPalette": []
         },
         "commands": [
             {
-                "command": "find.findAll",
-                "title": "FindAll"
+                "command": "find.findInFile",
+                "title": "Find All In File",
+                "mac": "cmd+k,cmd+k",
+                "when": "editorTextFocus"
             },
             {
                 "command": "find.clear",
