@@ -73,7 +73,7 @@
             },
             {
                 "command": "findInFile.withFile",
-                "title": "Find All In File",
+                "title": "Find All In File"
             },
             {
                 "command": "findInFile.clear",
