@@ -3,7 +3,7 @@
     "displayName": "find-more",
     "description": "Extend of the build-in find functions",
     "author": "Feng Youzheng",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "publisher": "FengYouzheng",
     "license": "MIT",
     "homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
