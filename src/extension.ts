@@ -5,6 +5,7 @@ import Finder from "./Finder"
 import { FindTextInFilesOptions } from "vscode"
 import { openStdin } from "process"
 
+// do not use it
 export interface IFindInFilesArgs {
   query?: string
   replace?: string
@@ -51,14 +52,11 @@ export function activate(context: vscode.ExtensionContext) {
       console.info(path)
       console.info(include)
 
-      var args: IFindInFilesArgs = {
-        query: target,
-        filesToInclude: include.join(","),
-        triggerSearch: true,
-      }
-
+      var filesToInclude = include.join(",")
       vscode.commands.executeCommand("workbench.action.findInFiles", {
-        args,
+        query: target,
+        filesToInclude: filesToInclude,
+        triggerSearch: true,
       })
     })
   )
