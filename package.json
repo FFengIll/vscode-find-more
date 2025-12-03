@@ -3,7 +3,7 @@
     "displayName": "find-more",
     "description": "Extend of the build-in find functions",
     "author": "Feng Youzheng",
-    "version": "0.3.2",
+    "version": "0.25.1203",
     "publisher": "FengYouzheng",
     "license": "MIT",
     "homepage": "https://github.com/FengYouzheng/vscode-find-more.git",
@@ -13,7 +13,7 @@
     },
     "bugs": "https://github.com/FengYouzheng/vscode-find-more.git/issues",
     "engines": {
-        "vscode": "^1.66.0"
+        "vscode": "^1.100.0"
     },
     "categories": [
         "Other"
@@ -27,25 +27,23 @@
     ],
     "main": "./out/extension",
     "scripts": {
-        "vscode:prepublish": "yarn run compile",
+        "vscode:prepublish": "pnpm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "pretest": "yarn run compile && yarn run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
+        "pretest": "pnpm run compile && pnpm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test"
     },
     "devDependencies": {
-        "@types/vscode": "^1.66.0",
-        "@types/glob": "^7.2.0",
-        "@types/mocha": "^9.1.0",
-        "@types/node": "14.x",
-        "@typescript-eslint/eslint-plugin": "^5.12.1",
-        "@typescript-eslint/parser": "^5.12.1",
-        "eslint": "^8.9.0",
-        "glob": "^7.2.0",
-        "mocha": "^9.2.1",
-        "typescript": "^4.5.5",
-        "@vscode/test-electron": "^2.1.2"
+        "@types/mocha": "^9.1.1",
+        "@types/node": "~14.18.63",
+        "@types/vscode": "^1.100.0",
+        "@typescript-eslint/eslint-plugin": "^8.48.1",
+        "@typescript-eslint/parser": "^8.48.1",
+        "eslint": "^9.39.1",
+        "glob": "^13.0.0",
+        "mocha": "^9.2.2",
+        "typescript": "^4.9.5"
     },
     "contributes": {
         "menus": {
