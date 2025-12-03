@@ -1,55 +1,64 @@
-# find-more README
+# find-more
 
-## Re-Maintenance
+A VS Code extension that enhances the built-in find functionality with convenient file-specific search options.
 
-Since new version vscode provide more commands include `workbench.action.findInFiles`,
-I can continue this work since some features needed by myself.
+## 🚀 Features
 
-## Description
+- **Quick File Search**: Search for text directly within selected files
+- **Easy Access**: Right-click on any file to search within it
+- **Toolbar Integration**: Use the "Find All In File" button in the editor toolbar
+- **Built-in Search**: Leverages VS Code's internal search capabilities
 
-Wish to extend vscode build-in find functions, so it is "find-more".  
-~~The find results will show in `Symbol Reference` panel and `PROBLEMS` panel (default not).~~
+## 📖 Usage
 
-- Select target, click `Find All In File` on title toolbar (the top-right), or `key in` the target.
-- `Right click` on the file, `Find All In File` to search only in the choosen.
+### Method 1: Toolbar
+1. Open a file in the editor
+2. Click `Find All In File` in the editor toolbar (top-right)
 
-> Actually, use vscode provided search
+### Method 2: Context Menu
+1. Right-click on any file in the explorer
+2. Select `Find All In File` to search within that specific file
 
-## Features
+## 🔧 How It Works
 
-- Use vscode internal find/search to find text in the given file.
-- ~~`Navigate` the edit according to the find results.~~
-- ~~`Highlight` the find results.~~
+This extension extends VS Code's built-in find functions by providing quick access to file-specific search operations. It uses the VS Code command `workbench.action.findInFiles` to perform searches efficiently.
 
-## Extension Settings
+## ⚙️ Extension Settings
 
-None for now.
+Currently, no additional settings are required. The extension works out of the box.
 
-## Known Issues
+## 📝 Release Notes
 
-None for now.
+### [0.3.0] - Current
+- Integrated with VS Code's `workbench.action.findInFiles` command
+- Improved search functionality using VS Code's internal search engine
 
-## Release Notes
+### [0.1.0]
+- Added ripgrep support
 
-- [0.3.0] Use new vscode command `workbench.action.findInFiles` for search.
-- [0.1.0] Can work with ripgrep.
-- [0.0.2] Basic functions completed.
-- [0.0.1] Initial release.
+### [0.0.2]
+- Implemented basic search functions
 
-# Misc
+### [0.0.1]
+- Initial release
 
-Source code in [Github](https://github.com/FFengIll/vscode-find-more.git)
-under [MIT](https://mit-license.org/).
+## 🤝 Acknowledgments
 
-Thanks to
-[vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint) (about diagnostic)
-[vscode-ext-color-highlight](https://github.com/sergiirocks/vscode-ext-color-highlight) (about decorations).
+Thanks to the following projects for inspiration:
+- [vscode-markdownlint](https://github.com/DavidAnson/vscode-markdownlint) - for diagnostic handling concepts
+- [vscode-ext-color-highlight](https://github.com/sergiirocks/vscode-ext-color-highlight) - for decoration handling concepts
 
-Old events
+## 📚 Related Resources
 
-- [issue](https://github.com/Microsoft/vscode/issues/14836)
-- [pr](https://github.com/Microsoft/vscode/pull/54038)
-- [plugin in github](https://github.com/FFengIll/vscode-find-more)
-- [plugin in market](https://marketplace.visualstudio.com/items?itemName=FengYouzheng.find-more)
+- [VS Code Issue #14836](https://github.com/Microsoft/vscode/issues/14836)
+- [VS Code PR #54038](https://github.com/Microsoft/vscode/pull/54038)
+- [GitHub Repository](https://github.com/FFengIll/vscode-find-more.git)
+- [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=FengYouzheng.find-more)
 
-**Enjoy!**
+## 📄 License
+
+MIT License
+
+---
+
+**Enjoy enhanced file searching in VS Code!**
