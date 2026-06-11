@@ -51,6 +51,33 @@ function findInFile(path: string, target: string) {
     }
 }
 
+async function findByName() {
+    console.log('findByName called');
+    const input = await vscode.window.showInputBox({
+        placeHolder: 'Enter filename or glob pattern (e.g. index, *.ts)',
+        prompt: 'Find files by name',
+    });
+    console.log('Input received:', input);
+    if (input === undefined || input.trim() === '') {
+        return;
+    }
+
+    // Build a filesToInclude glob pattern for the Search panel
+    // If user typed glob chars, use as-is; otherwise treat as substring match
+    const hasGlob = /[*?{}\[\]]/.test(input);
+    const filesToInclude = hasGlob ? input : `**/*${input}*`;
+
+    console.log('Executing findInFiles with filesToInclude:', filesToInclude);
+
+    // Workaround: VS Code Search panel won't trigger with empty query.
+    // Use a single space as the query (matches all files via whitespace) combined with filesToInclude.
+    await vscode.commands.executeCommand('workbench.action.findInFiles', {
+        query: ' ', // Single space as placeholder
+        filesToInclude: filesToInclude,
+        triggerSearch: true,
+    });
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -82,6 +109,9 @@ export function activate(context: vscode.ExtensionContext) {
                 findInFile(path, '');
             }
         )
+    );
+    context.subscriptions.push(
+        vscode.commands.registerCommand('findInFile.byName', findByName)
     );
 }
 

@@ -23,7 +23,8 @@
     ],
     "activationEvents": [
         "onCommand:findInFile.withText",
-        "onCommand:findInFile.withFile"
+        "onCommand:findInFile.withFile",
+        "onCommand:findInFile.byName"
     ],
     "main": "./out/extension",
     "scripts": {
@@ -51,6 +52,10 @@
                 {
                     "command": "findInFile.withText",
                     "group": "navigation@1"
+                },
+                {
+                    "command": "findInFile.byName",
+                    "group": "navigation@2"
                 }
             ],
             "explorer/context": [
@@ -66,6 +71,7 @@
             {
                 "command": "findInFile.withText",
                 "title": "Find All",
+                "icon": "$(search-view-icon)",
                 "mac": "cmd+k,cmd+k",
                 "when": "editorTextFocus"
             },
@@ -74,8 +80,20 @@
                 "title": "Find All In File"
             },
             {
+                "command": "findInFile.byName",
+                "title": "Find File By Name",
+                "icon": "$(symbol-file)"
+            },
+            {
                 "command": "findInFile.clear",
                 "title": "Clear"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "findInFile.byName",
+                "key": "ctrl+k ctrl+f",
+                "mac": "cmd+k cmd+f"
             }
         ]
     }
