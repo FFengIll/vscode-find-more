@@ -10,3 +10,6 @@ vsc-extension-quickstart.md
 **/*.ts
 .idea
 .pytest_cache
+
+.idea
+.sdlc
